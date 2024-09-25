@@ -1,8 +1,6 @@
-class Solution(object):
-    def strStr(self,haystack,needle):
+def strStr(haystack,needle):
         return haystack.find(needle)
-
 INPUT:haystack="HelloPremHellogokul"
 needle='gokul'
-substring(haystack,needle)
+strStr(haystack,needle)
 OUTPUT:14
