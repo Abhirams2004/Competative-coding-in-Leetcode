@@ -1,0 +1,42 @@
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        
+        # Create a new ListNode to store the result
+        result = ListNode(0)
+        current = result
+
+        # Set up variables to keep track of the carry and the current value
+        carry = 0
+        current_val = 0
+
+        # Loop until we reach the end of both lists
+        while l1 or l2:
+            # Get the values of the current nodes in both lists
+            # If the current node is None, use 0 as the value
+            val1 = l1.val if l1 else 0
+            val2 = l2.val if l2 else 0
+
+            # Add the values and the carry to get the current value
+            current_val = val1 + val2 + carry
+
+            # Update the carry for the next iteration
+            carry = current_val // 10
+
+            # Set the current value of the result ListNode to the ones digit
+            current.val = current_val % 10
+
+            # Move to the next nodes in both lists, if they exist
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+
+            # If either of the lists still has nodes, create a new ListNode for the result
+            if l1 or l2:
+              current.next = ListNode(0)
+              current = current.next
+
+        # If there is a remaining carry, add it to the result as a new ListNode
+        if carry > 0:
+            current.next = ListNode(carry)
+
+        # Return the result ListNode
+        return result
