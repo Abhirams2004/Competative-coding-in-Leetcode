@@ -1,0 +1,14 @@
+class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        c=0
+        cur=head
+        while cur:
+            c+=1
+            cur=cur.next
+        if c==n:
+            return head.next
+        ptr=head
+        for _ in range(c-n-1):
+            ptr=ptr.next
+        ptr.next=ptr.next.next
+        return head
