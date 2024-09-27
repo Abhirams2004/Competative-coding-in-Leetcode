@@ -1,0 +1,8 @@
+def missing(nums):
+    set1=set(nums)
+    for i in range(1,len(arr)+1):
+        if i not in set1:
+            print(i*"*",end=" ")
+missing(nums=[2,3,4,5,6,7,8])
+
+OUTPUT:*
