@@ -1,0 +1,33 @@
+class MyCalendarTwo(object):
+
+    def __init__(self):
+        self.events = []
+        self.overlaps = []
+
+    def book(self, start, end):
+        """
+        :type start: int
+        :type end: int
+        :rtype: bool
+        """
+        # First, check if the new event causes a triple booking by checking overlap with existing overlaps
+        for o_start, o_end in self.overlaps:
+            # If there is an overlap with an already double-booked event, return False
+            if max(start, o_start) < min(end, o_end):
+                return False
+
+        # Check if the new event creates new double bookings by overlapping with existing events
+        for e_start, e_end in self.events:
+            # If there is an overlap, calculate the overlapping region
+            if max(start, e_start) < min(end, e_end):
+                self.overlaps.append((max(start, e_start), min(end, e_end)))
+
+        # If no triple booking is caused, add the event to the event list
+        self.events.append((start, end))
+        return True
+        
+
+
+# Your MyCalendarTwo object will be instantiated and called as such:
+# obj = MyCalendarTwo()
+# param_1 = obj.book(start,end)
