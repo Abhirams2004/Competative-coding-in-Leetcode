@@ -1,0 +1,15 @@
+class mystack:
+    def __init__(self):
+        self.st = []
+    def revstr(self,mystr):
+        result = ''
+        for i in mystr:
+            self.st.append(i)
+        for i in range(len(self.st)):
+            poped = self.st.pop()
+            result = result+poped
+        return result    
+
+INPUT:B = mystack()
+      B.revstr("kill")
+OUTPUT:"llik"
