@@ -1,0 +1,130 @@
+class ListNode(object):
+    def __init__(self, val=0, next=None, prev=None):
+        self.val = val
+        self.next = next
+        self.prev = prev
+
+
+class MyCircularDeque(object):
+    def __init__(self, k):
+        """
+        :type k: int
+        """
+        self.max_nodes = k
+        self.num_nodes = 0
+        self.front = None
+        self.rear = None
+
+    def insertFront(self, value):
+        """
+        :type value: int
+        :rtype: bool
+        """
+        if not self.isFull():
+            node = ListNode(val=value)
+            if self.num_nodes == 0:
+                node.next = node
+                self.front = self.rear = node
+            else:
+                node.prev = self.rear
+                node.next = self.front
+                self.rear.next = node
+                self.front.prev = node
+                self.front = node
+            
+            self.num_nodes += 1
+            return True
+        else:
+            return False
+
+    def insertLast(self, value):
+        """
+        :type value: int
+        :rtype: bool
+        """
+        if not self.isFull():
+            node = ListNode(val=value)
+            if self.num_nodes == 0:
+                node.next = node
+                self.front = self.rear = node
+            else:
+                node.prev = self.rear
+                node.next = self.front
+                self.rear.next = node
+                self.front.prev = node
+                self.rear = node
+            
+            self.num_nodes += 1
+            return True
+        else:
+            return False
+
+    def deleteFront(self):
+        """
+        :rtype: bool
+        """
+        if not self.isEmpty():
+            if self.num_nodes == 1:
+                self.front = self.rear = None
+            else:
+                self.rear.next = self.front.next
+                self.front = self.front.next
+                self.front.prev = self.rear
+            
+            self.num_nodes -= 1
+            return True
+        else:
+            return False
+
+    def deleteLast(self):
+        """
+        :rtype: bool
+        """
+        if not self.isEmpty():
+            if self.num_nodes == 1:
+                self.front = self.rear = None
+            else:
+                self.front.prev = self.rear.prev
+                self.rear = self.rear.prev
+                self.rear.next = self.front
+            
+            self.num_nodes -= 1
+            return True
+        else:
+            return False
+
+    def getFront(self):
+        """
+        :rtype: int
+        """
+        if not self.isEmpty():
+            return self.front.val
+        else:
+            return -1
+
+    def getRear(self):
+        """
+        :rtype: int
+        """
+        if not self.isEmpty():
+            return self.rear.val
+        else:
+            return -1
+
+    def isEmpty(self):
+        """
+        :rtype: bool
+        """
+        if self.num_nodes == 0:
+            return True
+        else:
+            return False
+
+    def isFull(self):
+        """
+        :rtype: bool
+        """
+        if self.num_nodes == self.max_nodes:
+            return True
+        else:
+            return False
