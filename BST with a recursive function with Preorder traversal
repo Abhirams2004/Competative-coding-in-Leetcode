@@ -30,6 +30,34 @@ class BinaryTree:
             self.pre_order_traversal(node.left)  # Traverse left subtree
             self.pre_order_traversal(node.right)  # Traverse right subtree
 
+    def in_order_traversal(self, node):
+        if node:
+            self.in_order_traversal(node.left)  # Traverse left subtree
+            print(node.value)  # Process the root
+            self.in_order_traversal(node.right)  # Traverse right subtree
 
+    def post_order_traversal(self, node):
+        if node:
+            self.post_order_traversal(node.left)  # Traverse left subtree
+            self.post_order_traversal(node.right)  # Traverse right subtree
+            print(node.value)  # Process the root
+
+# Example usage
+if __name__ == "__main__":
+    # Create a binary tree
+    tree = BinaryTree(1)
+    tree.insert_left(tree.root, 2)
+    tree.insert_right(tree.root, 3)
+    tree.insert_left(tree.root.left, 4)
+    tree.insert_right(tree.root.left, 5)
+
+    print("Pre-order Traversal:")
+    tree.pre_order_traversal(tree.root)
+
+    print("\nIn-order Traversal:")
+    tree.in_order_traversal(tree.root)
+
+    print("\nPost-order Traversal:")
+    tree.post_order_traversal(tree.root)
 
             
