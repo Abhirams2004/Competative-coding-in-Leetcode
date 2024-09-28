@@ -1,0 +1,35 @@
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BinaryTree:
+    def __init__(self, root_value):
+        self.root = TreeNode(root_value)
+
+    def insert_left(self, current_node, value):
+        if current_node.left is None:
+            current_node.left = TreeNode(value)
+        else:
+            new_node = TreeNode(value)
+            new_node.left = current_node.left
+            current_node.left = new_node
+
+    def insert_right(self, current_node, value):
+        if current_node.right is None:
+            current_node.right = TreeNode(value)
+        else:
+            new_node = TreeNode(value)
+            new_node.right = current_node.right
+            current_node.right = new_node
+
+    def pre_order_traversal(self, node):
+        if node:
+            print(node.value)  # Process the root
+            self.pre_order_traversal(node.left)  # Traverse left subtree
+            self.pre_order_traversal(node.right)  # Traverse right subtree
+
+
+
+            
