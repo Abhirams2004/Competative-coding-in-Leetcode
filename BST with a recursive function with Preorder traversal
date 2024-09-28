@@ -1,63 +1,57 @@
-class TreeNode:
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
+class BST:
+    class Node:
+        def __init__(self,data):
+            self.data=data
+            self.left=None
+            self.right=None
+     #BST initialization       
+    def __init__(self):
+        self.root=None
 
-class BinaryTree:
-    def __init__(self, root_value):
-        self.root = TreeNode(root_value)
+    # Insert a new node without recursion
+    def insert(self, data):
+        new_node=BST.Node(data)
+        if self.root is None:
+            self.root=new_node
+            return
 
-    def insert_left(self, current_node, value):
-        if current_node.left is None:
-            current_node.left = TreeNode(value)
-        else:
-            new_node = TreeNode(value)
-            new_node.left = current_node.left
-            current_node.left = new_node
-
-    def insert_right(self, current_node, value):
-        if current_node.right is None:
-            current_node.right = TreeNode(value)
-        else:
-            new_node = TreeNode(value)
-            new_node.right = current_node.right
-            current_node.right = new_node
-
-    def pre_order_traversal(self, node):
+        current=self.root
+        while True:
+            if data<current.data:
+                if current.left is None:
+                    current.left=new_node
+                    break
+                else:
+                    current=current.left
+            else:
+                if current.right is None:
+                    current.right=new_node
+                    break
+                else:
+                    current=current.right
+    def in_order_traversal(self,node):
         if node:
-            print(node.value)  # Process the root
-            self.pre_order_traversal(node.left)  # Traverse left subtree
-            self.pre_order_traversal(node.right)  # Traverse right subtree
-
-    def in_order_traversal(self, node):
+            self.in_order_traversal(node.left)
+            print(node.data,end='  ')
+            self.in_order_traversal(node.right)
+    def pr(self,node):
         if node:
-            self.in_order_traversal(node.left)  # Traverse left subtree
-            print(node.value)  # Process the root
-            self.in_order_traversal(node.right)  # Traverse right subtree
-
-    def post_order_traversal(self, node):
+            print(node.data,end=' ')
+            self.pr(node.left)
+            self.pr(node.right)
+    def post(self,node):
         if node:
-            self.post_order_traversal(node.left)  # Traverse left subtree
-            self.post_order_traversal(node.right)  # Traverse right subtree
-            print(node.value)  # Process the root
-
-# Example usage
-if __name__ == "__main__":
-    # Create a binary tree
-    tree = BinaryTree(1)
-    tree.insert_left(tree.root, 2)
-    tree.insert_right(tree.root, 3)
-    tree.insert_left(tree.root.left, 4)
-    tree.insert_right(tree.root.left, 5)
-
-    print("Pre-order Traversal:")
-    tree.pre_order_traversal(tree.root)
-
-    print("\nIn-order Traversal:")
-    tree.in_order_traversal(tree.root)
-
-    print("\nPost-order Traversal:")
-    tree.post_order_traversal(tree.root)
-
-            
+            self.post(node.left)
+            self.post(node.right)
+            print(node.data,end=' ')
+    def search(self,key):
+        current=self.root
+        while current:
+            if key==current.data:
+                return True
+                break
+            elif key<current.data:
+                current=current.left
+            else:
+                current=current.right
+        return False
