@@ -1,0 +1,24 @@
+class Solution(object):
+    def twoSum(self, numbers, target):
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        # sorted in non decreasing order
+        # 2 number added to specific target
+        # indexes + 1
+        visited = {}
+        n = len(numbers)
+
+        for i in range(n):
+            num = numbers[i]
+            if target - num in visited:
+                indexI, indexJ = visited[target - num][-1] + 1, i + 1
+                return [indexI, indexJ]
+            if num not in visited:
+                visited[num] = [i]
+            else:
+                visited[num] += [i]
+
+        return []
