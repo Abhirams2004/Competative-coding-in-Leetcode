@@ -1,0 +1,30 @@
+class Solution(object):
+    def minSubarray(self, nums, p):
+        from collections import defaultdict
+
+        total_sum = sum(nums)
+        remainder_target = total_sum % p
+        if remainder_target == 0:
+            return 0
+
+        remainder_cache = defaultdict(lambda: -1)
+        remainder_cache[0] = -1
+        prefix_sum = 0
+        length = len(nums)
+        result = length
+
+        for i in range(length):
+            prefix_sum += nums[i]
+            remainder = prefix_sum % p
+            search = remainder - remainder_target if remainder >= remainder_target else remainder - remainder_target + p
+            val_from_cache = remainder_cache.get(search)
+
+            if val_from_cache is not None:
+                candidate_for_result = i - val_from_cache
+                result = min(result, candidate_for_result)
+
+            if result == 1:
+                return result
+            remainder_cache[remainder] = i
+
+        return -1 if result == length else result
