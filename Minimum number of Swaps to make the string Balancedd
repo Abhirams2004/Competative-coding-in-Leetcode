@@ -1,0 +1,18 @@
+class Solution(object):
+    def minSwaps(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        stack = []
+        for bracket in s:
+            if bracket == '[':
+                stack.append(bracket)
+            else:        
+                if stack and stack[-1] ==  '[':
+                    stack.pop()
+                else:
+                    stack.append(bracket)
+                    
+        num_of_left_bracket = len(stack) // 2
+        return int(math.ceil(float(num_of_left_bracket) / float(2)))
