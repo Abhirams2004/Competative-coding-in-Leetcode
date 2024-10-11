@@ -1,0 +1,20 @@
+import heapq
+
+class Solution(object):
+    def smallestChair(self, times, targetFriend):
+        """
+        :type times: List[List[int]]
+        :type targetFriend: int
+        :rtype: int
+        """
+        available = list(range(len(times)))
+        heapq.heapify(available)
+        
+        leaves = []
+        for arrive, leave in sorted(times):
+            while leaves and leaves[0][0] <= arrive:
+                heapq.heappush(available, heapq.heappop(leaves)[1])
+        
+            if arrive == times[targetFriend][0]:
+                return available[0]
+            heapq.heappush(leaves, (leave, heapq.heappop(available)))
