@@ -1,0 +1,26 @@
+class Solution(object):
+    def nextPermutation(self, nums):
+        index = -1
+        n = len(nums)
+        a = nums
+        # Step 1: Find the first decreasing element from the end
+        for i in range(n-2, -1, -1):
+            if a[i] < a[i+1]:
+                index = i
+                break
+        
+        # Step 2: If no such element exists, reverse the array
+        if index == -1:
+            a.reverse()
+            return a
+        
+        # Step 3: Find the first element from the end that is greater than the found element
+        for i in range(n-1, index, -1):
+            if a[i] > a[index]:
+                a[i], a[index] = a[index], a[i]  # Swap the two elements
+                break
+        
+        # Step 4: Reverse the sublist after the swapped element
+        a[index+1:] = reversed(a[index+1:])
+        
+        return a
