@@ -1,0 +1,22 @@
+from heapq import heappush,heappop, heapify
+
+class Solution:
+    def maxKelements(self, nums: List[int], k: int) -> int:
+        
+        maxHeap = [-num for num in nums]
+        heapify(maxHeap) 
+
+        result = 0
+        
+        for _ in range(k):
+            # Pop the largest element (simulated max-heap by negating values)
+            max_ele = -heappop(maxHeap)
+            result += max_ele
+            
+            # Push back the modified element (ceil(max_ele/3.0)) into the heap
+            new_val = math.ceil(max_ele / 3.0)
+            heappush(maxHeap, -new_val)
+        
+        return result
+
+        
