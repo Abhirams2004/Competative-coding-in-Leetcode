@@ -1,0 +1,27 @@
+class Solution(object):
+    def countAndSay(self, n):
+
+        result = "1"
+        for _ in range(2, n + 1):
+            current = result
+            result = ""
+            count = 1
+            
+            for j in range(1, len(current)):
+            
+                if current[j] == current[j - 1]:
+                    count += 1
+                else:
+                    
+                    result += str(count) + current[j - 1]
+                    count = 1  
+            
+            result += str(count) + current[-1]
+        
+        return result
+
+
+sol = Solution()
+print(sol.countAndSay(4))  
+print(sol.countAndSay(1)) 
+        
