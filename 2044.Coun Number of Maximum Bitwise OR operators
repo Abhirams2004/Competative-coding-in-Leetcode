@@ -1,0 +1,11 @@
+class Solution(object):
+    def countMaxOrSubsets(self, nums):
+        hashmap = defaultdict(int)
+        for i in nums:
+            temp = dict(hashmap)
+            for j in temp:
+                hashmap[j|i] += temp[j]
+            hashmap[i] += 1
+        
+        return hashmap[max(hashmap.keys())]
+        
