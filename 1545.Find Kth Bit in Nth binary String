@@ -1,0 +1,14 @@
+class Solution(object):
+    def findKthBit(self, n, k):
+        def invert(s):
+            return ''.join('1' if char == '0' else '0' for char in s)
+        def generate_sequence(n):
+            if n == 1:
+                return "0"
+            else:
+                previous = generate_sequence(n - 1)
+                inverted = invert(previous)
+                reversed_inverted = inverted[::-1]
+                return previous + "1" + reversed_inverted
+        string = generate_sequence(n)
+        return string[k-1:k]
