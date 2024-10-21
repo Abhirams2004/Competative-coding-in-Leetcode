@@ -1,0 +1,30 @@
+class Solution:
+    def parseBoolExpr(self, expression: str) -> bool:
+        stack = []
+        n = len(expression)
+        i = 0
+        
+        while i < n:
+            temp = expression[i]
+            if temp in '|(&!tf':
+                stack.append(temp)
+            elif temp == ')':
+                curr = []
+                while stack[-1] != '(':
+                    curr.append(stack.pop())
+                stack.pop()  
+                
+                top = stack.pop()
+                
+                if top == '|':
+                    result = 't' in curr
+                    stack.append('t' if result else 'f')
+                elif top == '&':
+                    result = all(ch == 't' for ch in curr)
+                    stack.append('t' if result else 'f')
+                elif top == '!':
+                    stack.append('f' if curr[0] == 't' else 't')
+            
+            i += 1
+        
+        return stack[-1] == 't'
